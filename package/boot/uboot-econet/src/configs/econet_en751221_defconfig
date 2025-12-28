@@ -55,12 +55,18 @@ CONFIG_SPI=y
 CONFIG_DM_SPI=y
 CONFIG_AIROHA_EN7523_SPI=y
 
+# MTD and SPI-NAND
+CONFIG_MTD=y
+CONFIG_DM_MTD=y
+CONFIG_MTD_SPI_NAND=y
+
 # Commands - minimal set for initial testing
 CONFIG_CMD_MEMORY=y
 # CONFIG_CMD_CACHE is not set
 CONFIG_CMD_CPU=y
 CONFIG_CMD_ECHO=y
 CONFIG_CMD_MISC=y
+CONFIG_CMD_MTD=y
 
 # Disable unused features for smaller binary
 # CONFIG_CMD_ELF is not set
