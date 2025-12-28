@@ -42,4 +42,12 @@
 		current-speed = <115200>;
 		status = "okay";
 	};
+
+	spi0: spi@1fa10000 {
+		compatible = "airoha,en7523-spi";
+		reg = <0x1fa10000 0x140>;
+		#address-cells = <1>;
+		#size-cells = <0>;
+		status = "okay";
+	};
 };

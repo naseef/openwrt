@@ -50,6 +50,11 @@ CONFIG_DEBUG_UART_ANNOUNCE=y
 CONFIG_LOGLEVEL=7
 CONFIG_LOG=y
 
+# SPI controller
+CONFIG_SPI=y
+CONFIG_DM_SPI=y
+CONFIG_AIROHA_EN7523_SPI=y
+
 # Commands - minimal set for initial testing
 CONFIG_CMD_MEMORY=y
 # CONFIG_CMD_CACHE is not set

@@ -325,6 +325,12 @@ config MT7621_SPI
 	  the SPI NOR flash on platforms embedding this Ralink / MediaTek
 	  SPI core, like MT7621/7628/7688.
 
+config AIROHA_EN7523_SPI
+	bool "Airoha EN7523 SPI controller driver"
+	help
+	  Enable the Airoha EN7523 SPI controller driver. This is used on
+	  Airoha EN7523 and EcoNet EN751221 SoCs.
+
 config MTK_SNOR
 	bool "Mediatek SPI-NOR controller driver"
 	depends on SPI_MEM

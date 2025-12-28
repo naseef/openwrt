@@ -53,6 +53,7 @@ obj-$(CONFIG_MTK_SNOR) += mtk_snor.o
 obj-$(CONFIG_MTK_SPIM) += mtk_spim.o
 obj-$(CONFIG_MT7620_SPI) += mt7620_spi.o
 obj-$(CONFIG_MT7621_SPI) += mt7621_spi.o
+obj-$(CONFIG_AIROHA_EN7523_SPI) += spi-airoha-en7523.o
 obj-$(CONFIG_MSCC_BB_SPI) += mscc_bb_spi.o
 obj-$(CONFIG_MVEBU_A3700_SPI) += mvebu_a3700_spi.o
 obj-$(CONFIG_MXC_SPI) += mxc_spi.o
