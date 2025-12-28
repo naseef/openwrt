@@ -89,6 +89,25 @@ config ARCH_MTMIPS
 	select SUPPORT_LITTLE_ENDIAN
 	select SUPPORT_SPL
 
+config ARCH_ECONET
+	bool "Support EcoNet EN75xx platforms"
+	select HAS_FIXED_TIMER_FREQUENCY
+	select DISPLAY_CPUINFO
+	select DM
+	select DM_SERIAL
+	imply MTD
+	imply DM_SPI
+	imply DM_SPI_FLASH
+	select OF_CONTROL
+	select SUPPORTS_CPU_MIPS32_R1
+	select SUPPORTS_CPU_MIPS32_R2
+	select SUPPORT_BIG_ENDIAN
+	imply CMD_DM
+	help
+	  Support for EcoNet EN75xx series MIPS SoCs including EN751221.
+	  These are MIPS 34Kc based big-endian SoCs used in xPON and DSL
+	  CPE devices.
+
 config ARCH_JZ47XX
 	bool "Support Ingenic JZ47xx"
 	select SUPPORT_SPL
@@ -203,6 +222,7 @@ source "arch/mips/mach-bmips/Kconfig"
 source "arch/mips/mach-jz47xx/Kconfig"
 source "arch/mips/mach-pic32/Kconfig"
 source "arch/mips/mach-mtmips/Kconfig"
+source "arch/mips/mach-econet/Kconfig"
 source "arch/mips/mach-octeon/Kconfig"
 
 if MIPS

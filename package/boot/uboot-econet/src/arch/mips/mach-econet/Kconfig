@@ -1,0 +1,71 @@
+# SPDX-License-Identifier: GPL-2.0+
+#
+# EcoNet EN751221 SoC support
+
+menu "EcoNet MIPS platforms"
+	depends on ARCH_ECONET
+
+config SYS_VENDOR
+	default "econet"
+
+config SYS_SOC
+	default "en751221"
+
+config SYS_MALLOC_F_LEN
+	default 0x1000
+
+config SYS_DCACHE_SIZE
+	default 32768
+
+config SYS_DCACHE_LINE_SIZE
+	default 32
+
+config SYS_ICACHE_SIZE
+	default 32768
+
+config SYS_ICACHE_LINE_SIZE
+	default 32
+
+config TEXT_BASE
+	default 0x80020000
+
+config MAX_MEM_SIZE
+	int
+	default 256
+
+choice
+	prompt "EcoNet SoC select"
+
+config SOC_EN751221
+	bool "EN751221"
+	select SYS_CACHE_SHIFT_5
+	select SYS_MIPS_CACHE_INIT_RAM_LOAD
+	select MIPS_TUNE_34KC
+	select SYS_MIPS_CACHE_MODE_WRITE_BACK
+	help
+	  EcoNet EN751221 is a MIPS 34Kc based SoC used in xPON and DSL
+	  CPE devices. 
+
+endchoice
+
+choice
+	prompt "Board select"
+	depends on SOC_EN751221
+
+config BOARD_EN751221_GENERIC
+	bool "EN751221 Generic Board"
+	help
+	  Generic board configuration for EN751221 development.
+	  Can be used for initial bring-up and testing.
+
+endchoice
+
+config SYS_BOARD
+	default "en751221"
+
+config SYS_CONFIG_NAME
+	default "en751221"
+
+source "board/econet/en751221/Kconfig"
+
+endmenu
