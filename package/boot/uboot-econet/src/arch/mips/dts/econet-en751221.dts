@@ -1,0 +1,45 @@
+// SPDX-License-Identifier: GPL-2.0+
+/*
+ * EcoNet EN751221 device tree for U-Boot
+ */
+
+/dts-v1/;
+
+/ {
+	compatible = "econet,en751221";
+	model = "EcoNet EN751221";
+
+	#address-cells = <1>;
+	#size-cells = <1>;
+
+	cpus {
+		#address-cells = <1>;
+		#size-cells = <0>;
+
+		cpu@0 {
+			device_type = "cpu";
+			compatible = "mips,mips34Kc";
+			reg = <0>;
+		};
+	};
+
+	memory@0 {
+		device_type = "memory";
+		reg = <0x0 0x8000000>;	/* 128MB - adjusted by dram_init */
+	};
+
+	chosen {
+		stdout-path = &uart0;
+	};
+
+	
+	uart0: serial@1fbf0000 {
+		compatible = "ns16550a";
+		reg = <0x1fbf0000 0x30>;
+		reg-io-width = <4>;
+		reg-shift = <2>;
+		clock-frequency = <1843200>;
+		current-speed = <115200>;
+		status = "okay";
+	};
+};

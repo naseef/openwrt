@@ -1,0 +1,4 @@
+# SPDX-License-Identifier: GPL-2.0+
+
+# Board-specific options for EN751221
+# Currently empty - board config handled in mach-econet/Kconfig

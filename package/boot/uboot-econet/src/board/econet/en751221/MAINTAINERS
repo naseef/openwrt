@@ -1,0 +1,8 @@
+ECONET EN751221
+M:	OpenWrt Developers <openwrt-devel@lists.openwrt.org>
+S:	Maintained
+F:	board/econet/en751221/
+F:	include/configs/en751221.h
+F:	configs/econet_en751221_defconfig
+F:	arch/mips/mach-econet/
+F:	arch/mips/dts/econet-en751221.dts
