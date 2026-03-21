@@ -7,6 +7,47 @@
 	model = "DASAN H660GM-A (Airtel)";
 	compatible = "dasan,h660gm-a-airtel", "econet,en7528";
 
+	firmware_concat0 {
+		compatible = "mtd-concat";
+		devices = <&tclinux &unknown_1>;
+
+		partitions {
+			compatible = "fixed-partitions";
+			#address-cells = <1>;
+			#size-cells = <1>;
+
+			econet,boot-flag = <&bootloader_flag 0xfff>;
+
+			partition@0 {
+				compatible = "econet,trx";
+				label = "firmware";
+				reg = <0x0 0x5e80000>;
+				econet,enable-remap;
+				econet,boot-flag-value = <0>;
+			};
+		};
+	};
+
+	firmware_concat1 {
+		compatible = "mtd-concat";
+		devices = <&tclinux_slave &unknown_2>;
+
+		partitions {
+			compatible = "fixed-partitions";
+			#address-cells = <1>;
+			#size-cells = <1>;
+
+			econet,boot-flag = <&bootloader_flag 0xfff>;
+
+			partition@0 {
+				compatible = "econet,trx";
+				label = "firmware2";
+				reg = <0x0 0x5e80000>;
+				econet,boot-flag-value = <1>;
+			};
+		};
+	};
+
 	leds {
 		led_wps: wps {
 			color = <LED_COLOR_ID_GREEN>;
@@ -45,9 +86,14 @@
 };
 
 &partitions {
-	partition@60c0000 {
-		label = "unknown";
-		reg = <0x60c0000 0x7d00000>;
+	unknown_1: partition@60c0000 {
+		label = "unknown_1";
+		reg = <0x60c0000 0x3e80000>;
+	};
+
+	unknown_2: partition@9f40000 {
+		label = "unknown_2";
+		reg = <0x9f40000 0x3e80000>;
 	};
 
 	partition@ddc0000 {

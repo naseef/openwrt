@@ -7,6 +7,47 @@
 	model = "DASAN H660GM-A (Generic)";
 	compatible = "dasan,h660gm-a-generic", "econet,en7528";
 
+	firmware_concat0 {
+		compatible = "mtd-concat";
+		devices = <&tclinux &unknown_1>;
+
+		partitions {
+			compatible = "fixed-partitions";
+			#address-cells = <1>;
+			#size-cells = <1>;
+
+			econet,boot-flag = <&bootloader_flag 0xfff>;
+
+			partition@0 {
+				compatible = "econet,trx";
+				label = "firmware";
+				reg = <0x0 0x2680000>;
+				econet,enable-remap;
+				econet,boot-flag-value = <0>;
+			};
+		};
+	};
+
+	firmware_concat1 {
+		compatible = "mtd-concat";
+		devices = <&tclinux_slave &unknown_2>;
+
+		partitions {
+			compatible = "fixed-partitions";
+			#address-cells = <1>;
+			#size-cells = <1>;
+
+			econet,boot-flag = <&bootloader_flag 0xfff>;
+
+			partition@0 {
+				compatible = "econet,trx";
+				label = "firmware2";
+				reg = <0x0 0x2680000>;
+				econet,boot-flag-value = <1>;
+			};
+		};
+	};
+
 	keys {
 		key-wlan {
 			label = "wlan";
@@ -81,9 +122,14 @@
 };
 
 &partitions {
-	partition@60c0000 {
-		label = "unknown";
-		reg = <0x60c0000 0xd00000>;
+	unknown_1: partition@60c0000 {
+		label = "unknown_1";
+		reg = <0x60c0000 0x680000>;
+	};
+
+	unknown_2: partition@6740000 {
+		label = "unknown_2";
+		reg = <0x6740000 0x680000>;
 	};
 
 	partition@6dc0000 {

@@ -152,8 +152,6 @@
 		#address-cells = <1>;
 		#size-cells = <1>;
 
-		econet,boot-flag = <&bootloader_flag 0xfff>;
-
 		partition@0 {
 			label = "bootloader";
 			reg = <0x0 0x40000>;
@@ -176,19 +174,14 @@
 			};
 		};
 
-		partition@80000 {
-			compatible = "econet,trx";
+		tclinux: partition@80000 {
 			label = "tclinux";
 			reg = <0x80000 0x2000000>;
-			econet,enable-remap;
-			econet,boot-flag-value = <0>;
 		};
 
-		partition@2080000 {
-			compatible = "econet,trx";
+		tclinux_slave: partition@2080000 {
 			label = "tclinux_slave";
 			reg = <0x2080000 0x2000000>;
-			econet,boot-flag-value = <1>;
 		};
 
 		partition@4080000 {
