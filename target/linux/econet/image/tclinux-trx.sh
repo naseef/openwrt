@@ -13,11 +13,11 @@ die() {
 
 usage() {
     cat >&2 <<EOF
-SYNTAX: $0 --kernel <file> --rootfs <file> --version <string> [options]
+SYNTAX: $0 --kernel <file> --version <string> [options]
 
 Options:
   --kernel   Path to kernel lzma file (required)
-  --rootfs   Path to rootfs squashfs file (required)
+  --rootfs   Path to rootfs file (optional)
   --version  Version string, max 31 chars (required)
   --endian   Endianness: 'be' for big endian, 'le' for little endian (default: be)
   --model    Model/platform name, max 31 chars (default: empty)
@@ -66,7 +66,6 @@ done
 
 # Validate required arguments
 [ -n "$kernel" ] || die "Missing required argument: --kernel"
-[ -n "$rootfs" ] || die "Missing required argument: --rootfs"
 [ -n "$version" ] || die "Missing required argument: --version"
 
 # Validate endianness
@@ -78,12 +77,12 @@ esac
 
 which zytrx >/dev/null || die "zytrx not found in PATH $PATH"
 [ -f "$kernel" ] || die "Kernel file not found: $kernel"
-[ -f "$rootfs" ] || die "Rootfs file not found: $rootfs"
+[ -n "$rootfs" ] && [ ! -f "$rootfs" ] && die "Rootfs file not found: $rootfs"
 [ "$(echo "$version" | wc -c)" -lt 32 ] || die "Version string too long: $version"
 [ -z "$model" ] || [ "$(printf '%s' "$model" | wc -c)" -lt 32 ] || die "Model string too long: $model"
 
 kernel_len=$(stat -c '%s' "$kernel")
-rootfs_len=$(stat -c '%s' "$rootfs")
+rootfs_len=$([ -n "$rootfs" ] && stat -c '%s' "$rootfs" || echo 0)
 total_len=$(($HDRLEN + $kernel_len + $rootfs_len))
 
 echo "endian: $endian" >&2
@@ -115,7 +114,7 @@ trx_crc32() {
     tmpfile=$(mktemp)
     outtmpfile=$(mktemp)
     cat "$kernel" > "$tmpfile"
-    cat "$rootfs" >> "$tmpfile"
+    [ -n "$rootfs" ] && cat "$rootfs" >> "$tmpfile"
     # We just need a CRC-32/JAMCRC of the concatnated files
     # There's no readily available tool for this, but zytrx does create one when
     # creating their TRX header, so we just use that.
@@ -179,4 +178,5 @@ tclinux_trx_hdr() {
 
 tclinux_trx_hdr | from_hex
 cat "$kernel"
-cat "$rootfs"
+[ -n "$rootfs" ] && cat "$rootfs"
+exit 0

@@ -22,7 +22,6 @@
 				compatible = "econet,trx";
 				label = "firmware";
 				reg = <0x0 0x5e80000>;
-				econet,enable-remap;
 				econet,boot-flag-value = <0>;
 			};
 		};
